@@ -1,0 +1,43 @@
+my $file = 'inputs/input_3';
+open my $info, $file or die "Could not open $file: $!";
+
+my $result = 0;
+
+while( my $line = <$info>)  {   
+    while ( $line =~ /mul\((\d{1,3}),(\d{1,3})\)/g ) {
+        $result += $1 * $2;
+    }
+}
+
+print $result, "\n";
+
+close $info;
+
+
+# -----------------------------------------------#
+
+
+my $file = 'inputs/input_3';
+open my $info, $file or die "Could not open $file: $!";
+
+my $result = 0;
+my $line_count = 0;
+my $all_lines = "";
+
+while( my $line = <$info>)  {
+    chomp $line;
+    $all_lines = $all_lines . $line;
+}
+
+$all_lines = "do()" . $all_lines . "don't()";
+
+while ( $all_lines =~ /(?=(do\(\)((?!(do\(\)|don't\(\))).)+(do\(\)|don't\(\))))/g) {
+    my $line = $1;
+    while ( $line =~ /mul\((\d{1,3}),(\d{1,3})\)/g ) {
+        $result += $1 * $2;
+    }
+}
+
+print $result, "\n";
+
+close $info;
